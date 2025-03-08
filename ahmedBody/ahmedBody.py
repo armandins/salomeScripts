@@ -4,6 +4,7 @@
 ### Arman Dindar Safa 
 ### 3 / 9 / 2025
 ### This is the geom of Ahmed body test case.
+### The angle phi is parameterized.
 ### https://www.cfd-online.com/Wiki/Ahmed_body
 ### This file is generated automatically by SALOME v9.13.0 with dump python functionality
 ###
@@ -14,7 +15,7 @@ import salome
 salome.salome_init()
 import salome_notebook
 notebook = salome_notebook.NoteBook()
-sys.path.insert(0, r'C:/Users/Arman/Desktop/SalomeTraining')
+sys.path.insert(0, r'C:/Users/Arman/Desktop/SalomeTraining/ahmedBody')
 
 ###
 ### SHAPER component
@@ -30,6 +31,7 @@ partSet = model.moduleDocument()
 ### Create Part
 Part_1 = model.addPart(partSet)
 Part_1_doc = Part_1.document()
+model.addParameter(Part_1_doc, "angle", '35')
 
 ### Create Sketch
 Sketch_1 = model.addSketch(Part_1_doc, model.defaultPlane("XOY"))
@@ -74,7 +76,7 @@ SketchLine_6.setName("SketchLine_7")
 SketchLine_6.result().setName("SketchLine_7")
 
 ### Create SketchConstraintAngle
-Sketch_1.setAngle(SketchLine_6.result(), SketchLine_4.result(), 35, type = "Supplementary")
+Sketch_1.setAngle(SketchLine_6.result(), SketchLine_4.result(), "angle", type = "Supplementary")
 Sketch_1.setCoincident(SketchLine_6.startPoint(), SketchLine_4.endPoint())
 Sketch_1.setCoincident(SketchLine_6.endPoint(), SketchLine_5.startPoint())
 model.do()
@@ -199,100 +201,6 @@ Extrusion_2_1, = SHAPERSTUDY.shape(model.featureStringId(Extrusion_2))
 Extrusion_2_2, = SHAPERSTUDY.shape(model.featureStringId(Extrusion_2, 1))
 Extrusion_2_3, = SHAPERSTUDY.shape(model.featureStringId(Extrusion_2, 2))
 Extrusion_2_4, = SHAPERSTUDY.shape(model.featureStringId(Extrusion_2, 3))
-###
-### GEOM component
-###
-
-import GEOM
-from salome.geom import geomBuilder
-import math
-import SALOMEDS
-
-
-geompy = geomBuilder.New()
-
-(imported, geomObj_1, [], [], []) = geompy.ImportXAO("C:/Users/Arman/AppData/Local/Temp/shaper_1ozsm2xf.xao")
-
-###
-### SMESH component
-###
-
-import  SMESH, SALOMEDS
-from salome.smesh import smeshBuilder
-
-smesh = smeshBuilder.New()
-#smesh.SetEnablePublish( False ) # Set to False to avoid publish in study if not needed or in some particular situations:
-                                 # multiples meshes built in parallel, complex and numerous mesh edition (performance)
-
-smeshObj_1 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters', 'NETGENEngine', 1, 0 )
-#hyp_4.SetLength( 1 ) ### not created Object
-smeshObj_2 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 1, 0 )
-#hyp_8.SetLength( 0.001 ) ### not created Object
-smeshObj_3 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 0.001, 0 )
-#hyp_11.SetLength( 0.02 ) ### not created Object
-smeshObj_4 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 0.02, 0 )
-#hyp_14.SetLength( 0.005 ) ### not created Object
-smeshObj_5 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 0.005, 0 )
-try:
-  pass
-except:
-  print('ExportSTL() failed. Invalid file name?')
-#hyp_11.SetLength( 0.115074 ) ### not created Object
-smeshObj_6 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 0.115074, 0 )
-#hyp_15.SetLength( 0.115074 ) ### not created Object
-smeshObj_7 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 0.115074, 0 )
-#hyp_21.SetLength( 1 ) ### not created Object
-smeshObj_8 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 1, 0 )
-#hyp_24.SetLength( 0.116426 ) ### not created Object
-smeshObj_9 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters', 'NETGENEngine', 0.116426, 0 )
-#hyp_27.SetLength( 0.116426 ) ### not created Object
-smeshObj_10 = smesh.CreateHypothesisByAverageLength( 'NETGEN_Parameters_2D', 'NETGENEngine', 0.116426, 0 )
-smeshObj_10.SetMaxSize( 0.002 )
-smeshObj_10.SetMinSize( 0.0005 )
-smeshObj_10.SetSecondOrder( 0 )
-smeshObj_10.SetOptimize( 1 )
-smeshObj_10.SetFineness( 4 )
-smeshObj_10.SetChordalError( 0.058213 )
-smeshObj_10.SetChordalErrorEnabled( 1 )
-smeshObj_10.SetUseSurfaceCurvature( 1 )
-smeshObj_10.SetFuseEdges( 1 )
-smeshObj_10.SetWorstElemMeasure( 652 )
-smeshObj_10.SetUseDelauney( 0 )
-smeshObj_10.SetQuadAllowed( 0 )
-smeshObj_10.SetWorstElemMeasure( 181 )
-smeshObj_10.SetCheckChartBoundary( 32 )
-smeshObj_10.SetMaxSize( 0.001 )
-smeshObj_10.SetMinSize( 0.001 )
-smeshObj_10.SetFineness( 3 )
-smeshObj_10.SetWorstElemMeasure( 652 )
-smeshObj_10.SetCheckChartBoundary( 1 )
-smeshObj_10.SetWorstElemMeasure( 181 )
-smeshObj_10.SetCheckChartBoundary( 32 )
-
-## some objects were removed
-aStudyBuilder = salome.myStudy.NewBuilder()
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_10))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_2))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_7))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_5))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_9))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_8))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_3))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_6))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_1))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-SO = salome.myStudy.FindObjectIOR(salome.myStudy.ConvertObjectToIOR(smeshObj_4))
-if SO: aStudyBuilder.RemoveObjectWithChildren(SO)
-
-
 
 if salome.sg.hasDesktop():
   salome.sg.updateObjBrowser()
